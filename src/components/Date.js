@@ -1,8 +1,10 @@
 import React from "react"
 
-const Date = (props) => {
+
+const Date = () => {
+    const moment = require('moment');
     return(
-        <div className="date">{ props.date }</div>
+        <div className="date">{`${moment().format('MMMM Do YYYY')}`}</div>
     )
 }
 

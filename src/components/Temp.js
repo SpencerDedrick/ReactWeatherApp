@@ -2,7 +2,7 @@ import React from "react"
 
 const Temp = (props) => {
     return(
-        <div className="temp">{ props.temp }<span>°F</span></div>
+        <div className="temp noselect" onClick={ props.toggleUnit }>{ props.temp }<span>°{ props.unit }</span></div>
     )
 }
 

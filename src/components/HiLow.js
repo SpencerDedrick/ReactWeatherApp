@@ -2,7 +2,7 @@ import React from "react"
 
 const HiLow = (props) => {
     return(
-        <div className="hi-low">{ props.hilow[0] }°F / { props.hilow[1] }°F</div>
+        <div className="hi-low noselect" onClick={ props.toggleUnit }>{ props.hilow[0] }°{ props.unit } / { props.hilow[1] }°{ props.unit }</div>
     )
 }
 

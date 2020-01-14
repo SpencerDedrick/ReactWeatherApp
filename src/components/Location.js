@@ -1,9 +1,14 @@
 import React from "react"
+import City from "./City"
+import Date from "./Date"
 
 const Location = (props) => {
     return(
         <div className="location">
-            { props.children }
+
+            <City city={props.city}/>
+            
+            <Date />
         </div>
     )
 }
