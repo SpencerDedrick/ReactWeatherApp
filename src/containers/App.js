@@ -18,25 +18,27 @@ class App extends React.Component {
       city: "",
       temp: "",
       weather: "",
+      weatherC: "",
+      weatherF: "",
       hilow: [],
       unit: ['metric', 'C'],
     }
   }
 
   toggleUnit = () => {
-    if(this.state.unit[0] === "imperial"){
-      this.setState({
-        unit: ['metric', 'C']
-      })
-      this.fetchWeather(this.state.city)
-      console.log('switching to metric')
-    }
     if(this.state.unit[0] === "metric"){
       this.setState({
         unit: ['imperial', 'F']
       })
-      this.fetchWeather(this.state.city)
+      this.fetchWeatherF(this.state.city)
       console.log('switching to imperial')
+    }
+    if(this.state.unit[0] === "imperial"){
+      this.setState({
+        unit: ['metric', 'C']
+      })
+      this.fetchWeatherC(this.state.city)   
+      console.log('switching to metric')
 
     }
   }
@@ -52,8 +54,31 @@ class App extends React.Component {
         .then((response) => {
           return response.json()
         })
-        .then((weather) =>this.updateWeather(weather));
+        .then((weather) =>this.updateWeather(weather))
+        .catch(() => console.log('Error!'))
   }
+
+  fetchWeatherC = (query) => {
+    fetch(`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((weather) =>this.updateWeather(weather))
+      .catch(() => console.log('Error!'))
+}
+
+  fetchWeatherF = (query) => {
+    fetch(`${api.base}weather?q=${query}&units=imperial&APPID=${api.key}`)
+      .then((response) => {
+        return response.json()
+      })
+      .then((weather) =>this.updateWeather(weather))
+      .catch(() => console.log('Error!'))
+  }
+
+
+
+
 
   updateWeather = (weather) => {
     this.setState({ 
@@ -66,8 +91,15 @@ class App extends React.Component {
 
   render() {
     const { city, date, temp, weather, hilow, unit } = this.state;
-    
-    return(
+    return !city.length ?
+      <div className="app-wrap">
+        <Header>
+              <SearchBox 
+              onSearch={ this.onSearch }/>
+            </Header>
+            <Footer />
+      </div>:
+    (
       <div className="app-wrap">
         <main className="main">
           <Header>
