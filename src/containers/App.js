@@ -38,7 +38,7 @@ class App extends React.Component {
      this.setUnitMetric()
   }
 }
-
+  //setUnitImperial changes the state.unit to imperial and updates the temperature to reflect the new unit
   setUnitImperial = () => {
     this.setState({
       unit: ['imperial', 'F']
@@ -46,6 +46,7 @@ class App extends React.Component {
     this.updateWeatherData(this.state.weatherDataF)
   }
   
+   //setUnitMetric changes the state.unit to metric and updates the temperature to reflect the new unit
   setUnitMetric = () => {
     this.setState({
       unit: ['metric', 'C']
@@ -53,12 +54,17 @@ class App extends React.Component {
     this.updateWeatherData(this.state.weatherDataC)  
     }
 
+    //onSearch is an event handler that will fetch the weather when a valid city name is entered into the searchbox and the enter key is pressed
     onSearch = (event) => {
       if(event.keyCode === 13){
         this.fetchWeather(this.formatUrl(event.target.value))
+        this.setState({
+          unit: ['metric', 'C']
+        })
       }
     }
     
+    //formatUrl formats the url for the fetch request using the entered city name
     formatUrl = (query) => {
       return (
       [`${api.base}weather?q=${query}&units=metric&APPID=${api.key}`,
@@ -66,32 +72,42 @@ class App extends React.Component {
       )
     }
 
+    //fetchWeather uses the urls to fetch the weather data from open weather map.  Upon receiving the response the state is set to reflect the weather on the app.
     fetchWeather = async (urls) => {
-      const [ weatherDataC, weatherDataF] = await Promise.all(urls.map(async (url) => {
-        const response = await fetch(url)
-        return response.json()
-      }))
-      this.setWeatherData(weatherDataC, weatherDataF)
-      this.updateWeatherData(weatherDataC)
+      try{
+        const [ weatherDataC, weatherDataF] = await Promise.all(urls.map(async (url) => {
+          const response = await fetch(url)
+          return response.json()
+        }))
+        this.setWeatherData(weatherDataC, weatherDataF)
+        this.updateWeatherData(weatherDataC)
+      }catch (error) {console.log('error', error)}
      }
 
+      //setWeatherData sets the state.weatherDataC or state.weatherDataF so the toggleUnit function can quickly switch between the temperature in F or C
      setWeatherData = async (dataC, dataF) => {
-       this.setState({
-         weatherDataC: dataC,
-         weatherDataF: dataF,
-         weather: `${dataC.weather[0].description}`,
-       })
+      try{
+        this.setState({
+          weatherDataC: dataC,
+          weatherDataF: dataF,
+          weather: `${dataC.weather[0].description}`,
+        })
+      }catch (error) {console.log('error', error)}
      }
-
+     //updateWeatherData sets the initial values to be displayed on a search
     updateWeatherData = async (data) => {
-      this.setState({ 
-        cityName: `${data.name}, ${data.sys.country}`, 
-        temp:`${Math.round(data.main.temp)}`,
-        hilow: [`${Math.round(data.main.temp_min)}`,`${Math.round(data.main.temp_max)}`],
-      })
+      try{
+        this.setState({ 
+          cityName: `${data.name}, ${data.sys.country}`, 
+          temp:`${Math.round(data.main.temp)}`,
+          hilow: [`${Math.round(data.main.temp_min)}`,`${Math.round(data.main.temp_max)}`],
+        })
+      }catch (error) {console.log('error', error)}      
     }
     
-/*   toggleUnit = () => {
+/*   ORIGINAL CODE THAT WAS NOT ASYNCHRONOUS AND WAS SLUGGISH
+
+  toggleUnit = () => {
     if(this.state.unit[0] === "metric"){
       this.setState({
         unit: ['imperial', 'F']
@@ -108,7 +124,6 @@ class App extends React.Component {
 
     }
   }
-
   onSearch = (event) => {
     if(event.keyCode === 13){
       this.fetchWeather(event.target.value)
@@ -141,10 +156,6 @@ class App extends React.Component {
       .then((weather) =>this.updateWeather(weather))
       .catch(() => console.log('Error!'))
   }
-
-
-
-
 
   updateWeather = (weather) => {
     this.setState({ 
