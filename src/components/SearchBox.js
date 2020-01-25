@@ -1,3 +1,5 @@
+//The SearchBox component is where users can search a location to check the weather
+
 import React from "react"
 
 const SearchBox = ({ onSearch }) => {

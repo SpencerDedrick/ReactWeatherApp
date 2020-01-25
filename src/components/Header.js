@@ -1,3 +1,5 @@
+//The Header component contains the SearchBox component
+
 import React from "react"
 
 const Header = (props) => {

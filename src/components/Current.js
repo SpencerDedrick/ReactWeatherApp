@@ -1,3 +1,5 @@
+//The Current component contains the Temperature component, Weather Conditions component, and Hi & Low Temps component
+
 import React from "react"
 import Temp from "./Temp"
 import HiLow from "./HiLow"

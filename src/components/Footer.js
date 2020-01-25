@@ -1,3 +1,5 @@
+//The Footer component links to my personal portfolio page
+
 import React from "react"
 
 const Footer = () => {

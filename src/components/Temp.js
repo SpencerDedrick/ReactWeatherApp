@@ -1,3 +1,5 @@
+//The Temp component displays the temperature of the searched location
+
 import React from "react"
 
 const Temp = (props) => {

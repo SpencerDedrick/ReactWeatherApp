@@ -1,3 +1,5 @@
+//The HiLow component displays the Hi temp and Low temp 
+
 import React from "react"
 
 const HiLow = (props) => {

@@ -6,7 +6,7 @@
 
 body {
     font-family: 'montserrat', sans-serif;
-    background-image: url(../images/bg.jpg);
+    background-image: url(../images/bg2.jfif);
     background-size: cover;
     background-position: top center;
 }
@@ -31,7 +31,7 @@ header input {
     padding: 10px 15px;
     border: none;
     outline: none;
-    background-color: rgba(255,255,255, 0.3);
+    background-color: rgba(255,255,255, 0.6);
     color: #313131;
     border-radius: 15px 0px 15px 0px;
     border-bottom: 3px solid #DF8E00;
@@ -41,7 +41,7 @@ header input {
 }
 
 header input:focus {
-    background-color: rgba(255,255,255,0.6);
+    background-color: rgba(255,255,255, 0.8);
 }
 
 main {
@@ -105,7 +105,7 @@ main {
 }
 
 .footer {
-    color: rgba(255,255,255, 0.5);
+    color: rgba(255,255,255, 0.6);
     text-align: center;
     margin-bottom: 20px;
 }

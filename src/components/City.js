@@ -1,3 +1,4 @@
+//The City component displays the city name that is fetched from the OpenWeatherMap API
 import React from "react"
 
 const City = (props) => {
